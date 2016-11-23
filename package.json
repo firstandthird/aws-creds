@@ -1,0 +1,28 @@
+{
+  "name": "aws-creds",
+  "version": "1.0.0",
+  "description": "Library for handling aws credentials",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/firstandthird/aws-creds.git"
+  },
+  "author": "First+Third",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/firstandthird/aws-creds/issues"
+  },
+  "homepage": "https://github.com/firstandthird/aws-creds#readme",
+  "dependencies": {
+    "ini-config-parser": "^1.0.2",
+  },
+  "devDependencies": {
+    "eslint": "^3.4.0",
+    "eslint-config-firstandthird": "^3.0.2",
+    "eslint-plugin-import": "^1.14.0",
+    "mocha": "^3.1.2"
+  }
+}
