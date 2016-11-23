@@ -1,5 +1,4 @@
 'use strict';
-const AWS = require('aws-sdk');
 const ini = require('ini-config-parser');
 const os = require('os');
 
@@ -9,7 +8,7 @@ const fallbackAWSRegion = 'us-east-1';
 // 1. --profile command-line parameter
 // 2. AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables
 // 3. AWS_PROFILE or default
-const initCustomCredentials = (params) => {
+const initCustomCredentials = (AWS, params) => {
   const key = params.access_key ? params.access_key : process.env.AWS_ACCESS_KEY_ID;
   const secret = params.secret_key ? params.secret_key : process.env.AWS_SECRET_ACCESS_KEY;
   /* eslint-disable */
@@ -44,21 +43,21 @@ const extractRegionFromConfigFile = (params) => {
 // 2. AWS_DEFAULT_REGION environment variable
 // 3. the ~/.aws/config file
 // 4. 'us-east-1'
-const initRegion = (params) => {
+const initRegion = (AWS, AWS_module, params) => {
   let region = params.region ? params.region : process.env.AWS_DEFAULT_REGION;
   if (region) {
-    return new AWS.S3({ region });
+    return new AWS[AWS_module]({ region });
   }
   try {
     region = extractRegionFromConfigFile(params);
-    return new AWS.S3({ region });
+    return new AWS[AWS_module]({ region });
   } catch (exc) {
     console.log('Falling back to region us-east-1......');
-    return new AWS.S3({ region: fallbackAWSRegion });
+    return new AWS[AWS_module]({ region: fallbackAWSRegion });
   }
 };
 
-module.exports = (argv) => {
-  initCustomCredentials(argv);
-  return initRegion(argv);
+module.exports = (AWS, AWS_module, argv) => {
+  initCustomCredentials(AWS, argv);
+  return initRegion(AWS, AWS_module, argv);
 };

@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/firstandthird/hapi-embargo#readme",
   "dependencies": {
-    "aws-sdk": "^2.7.7",
     "ini-config-parser": "^1.0.2",
     "lodash": "^4.15.0",
     "logr": "^1.13.0",
