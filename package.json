@@ -8,23 +8,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/firstandthird/hapi-embargo.git"
+    "url": "git+https://github.com/firstandthird/aws-creds.git"
   },
   "author": "First+Third",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/firstandthird/hapi-embargo/issues"
+    "url": "https://github.com/firstandthird/aws-creds/issues"
   },
-  "homepage": "https://github.com/firstandthird/hapi-embargo#readme",
+  "homepage": "https://github.com/firstandthird/aws-creds#readme",
   "dependencies": {
     "ini-config-parser": "^1.0.2",
-    "lodash": "^4.15.0",
-    "logr": "^1.13.0",
-    "mocha": "^3.1.2"
   },
   "devDependencies": {
     "eslint": "^3.4.0",
     "eslint-config-firstandthird": "^3.0.2",
-    "eslint-plugin-import": "^1.14.0"
+    "eslint-plugin-import": "^1.14.0",
+    "mocha": "^3.1.2"
   }
 }

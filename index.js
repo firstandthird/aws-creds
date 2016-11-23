@@ -9,8 +9,8 @@ const fallbackAWSRegion = 'us-east-1';
 // 2. AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables
 // 3. AWS_PROFILE or default
 const initCustomCredentials = (AWS, params) => {
-  const key = params.access_key ? params.access_key : process.env.AWS_ACCESS_KEY_ID;
-  const secret = params.secret_key ? params.secret_key : process.env.AWS_SECRET_ACCESS_KEY;
+  const key = params.accessKey ? params.accessKey : process.env.AWS_ACCESS_KEY_ID;
+  const secret = params.secretKey ? params.secretKey : process.env.AWS_SECRET_ACCESS_KEY;
   /* eslint-disable */
   const profile = params.profile ? params.profile :
     (process.env.AWS_PROFILE ? process.env.AWS_PROFILE : 'default');
@@ -33,8 +33,6 @@ const extractRegionFromConfigFile = (params) => {
   } else if (data[profile]) {
     return data[profile].region;
   }
-  console.log(`Unable to locate profile ${profile} in file ${os.homedir()}/.aws/config.`);
-  console.log(`Falling back to ${fallbackAWSRegion}`);
   return fallbackAWSRegion;
 };
 
@@ -43,21 +41,20 @@ const extractRegionFromConfigFile = (params) => {
 // 2. AWS_DEFAULT_REGION environment variable
 // 3. the ~/.aws/config file
 // 4. 'us-east-1'
-const initRegion = (AWS, AWS_module, params) => {
+const initRegion = (AWS, awsModule, params) => {
   let region = params.region ? params.region : process.env.AWS_DEFAULT_REGION;
   if (region) {
-    return new AWS[AWS_module]({ region });
+    return new AWS[awsModule]({ region });
   }
   try {
     region = extractRegionFromConfigFile(params);
-    return new AWS[AWS_module]({ region });
+    return new AWS[awsModule]({ region });
   } catch (exc) {
-    console.log('Falling back to region us-east-1......');
-    return new AWS[AWS_module]({ region: fallbackAWSRegion });
+    return new AWS[awsModule]({ region: fallbackAWSRegion });
   }
 };
 
-module.exports = (AWS, AWS_module, argv) => {
+module.exports = (AWS, awsModule, argv) => {
   initCustomCredentials(AWS, argv);
-  return initRegion(AWS, AWS_module, argv);
+  return initRegion(AWS, awsModule, argv);
 };
