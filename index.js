@@ -43,14 +43,19 @@ const extractRegionFromConfigFile = (params) => {
 // 4. 'us-east-1'
 const initRegion = (AWS, awsModule, params) => {
   let region = params.region ? params.region : process.env.AWS_DEFAULT_REGION;
+  const options = {};
   if (region) {
-    return new AWS[awsModule]({ region });
+    options.region = region;
+  }
+  if (params.endpoint) {
+    options.endpoint = params.endpoint;
   }
   try {
-    region = extractRegionFromConfigFile(params);
-    return new AWS[awsModule]({ region });
+    options.region = extractRegionFromConfigFile(params);
+    return new AWS[awsModule](options);
   } catch (exc) {
-    return new AWS[awsModule]({ region: fallbackAWSRegion });
+    options.region = fallbackAWSRegion;
+    return new AWS[awsModule](options);
   }
 };
 
