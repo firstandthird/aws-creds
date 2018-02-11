@@ -1,5 +1,6 @@
 'use strict';
-const ini = require('ini-config-parser');
+const ini = require('ini');
+
 const os = require('os');
 
 const fallbackAWSRegion = 'us-east-1';
