@@ -1,5 +1,6 @@
 'use strict';
-const ini = require('ini-config-parser');
+const ini = require('ini');
+const fs = require('fs');
 const os = require('os');
 
 const fallbackAWSRegion = 'us-east-1';
@@ -25,7 +26,7 @@ const initCustomCredentials = (AWS, params) => {
 
 const extractRegionFromConfigFile = (params) => {
   const sharedAWSConfigFilePath = `${os.homedir()}/.aws/config`;
-  const data = ini.parse(sharedAWSConfigFilePath);
+  const data = ini.parse(fs.readFileSync(sharedAWSConfigFilePath, 'utf-8'));
   const profile = params.profile ? params.profile : 'default';
   // some config files use this format:
   if (data[`profile ${profile}`]) {
