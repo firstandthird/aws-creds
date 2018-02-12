@@ -1,6 +1,6 @@
 {
   "name": "aws-creds",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Library for handling aws credentials",
   "main": "index.js",
   "scripts": {
