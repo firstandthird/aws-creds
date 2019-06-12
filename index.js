@@ -27,12 +27,11 @@ const initCustomCredentials = (AWS, params) => {
 const extractRegionFromConfigFile = (params) => {
   const sharedAWSConfigFilePath = `${os.homedir()}/.aws/config`;
   const data = ini.parse(fs.readFileSync(sharedAWSConfigFilePath, 'utf-8'));
-  const profile = params.profile ? params.profile : 'default';
   // some config files use this format:
-  if (data[`profile ${profile}`]) {
-    return data[`profile ${profile}`].region;
-  } else if (data[profile]) {
-    return data[profile].region;
+  if (data[`profile ${params.profile}`]) {
+    return data[`profile ${params.profile}`].region;
+  } else if (data[params.profile]) {
+    return data[params.profile].region;
   }
   return fallbackAWSRegion;
 };
