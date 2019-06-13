@@ -57,5 +57,7 @@ const initRegion = (AWS, awsModule, params) => {
 
 module.exports = (AWS, awsModule, argv) => {
   initCustomCredentials(AWS, argv);
+  // params profile should always try to match what was determined by initCustomCredentials:
+  argv.profile = AWS.config.credentials.profile;
   return initRegion(AWS, awsModule, argv);
 };
